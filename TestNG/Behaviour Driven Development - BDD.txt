@@ -1,0 +1,100 @@
+******************   Behavior Driven Development - BDD    ******************
+
+it is a popular black box technique to do automation testing.
+we are gonna use java based framework i.e. Cucumber to implement BDD
+
+
+In this (dot).features we gonna write the behaviors (business analyst writes the behavior)
+
+the behavior are written using GHERKIN language
+
+The Gherkin language revolves are the following keywords:
+
+1. Given - A precondition
+Eg: given user on login page
+
+2. When - An action/ set of actions
+Eg: When user types correct username and incorrect password
+
+3. And - is a Conjunction (join two separate actions)
+Eg: And user clicks login button
+
+4. Or
+5. But
+
+6.Then - An outcome to be validates
+Eg: Then user lands on welcome page
+
+----------------------------------------------------------------------------
+
+Business analyst writes BDD and give it to Testers
+Then Testers write test cases to each behavior and give it to Developer
+
+----------------------------------------------------------------------------
+
+Step 1: create  a Maven Project
+Step 2: Group Id -> com.coforge.bdd
+Step 3: Artifcat Id -> DemoBDD
+
+Step 4: RightCick on src/test/Java --> Create pacakage com.coforge.steps
+Step 5: RightCick on src/test/java --> create package com.coforge.runner
+
+Step 6: Create a folder named - MyAppFeatures --> Rightclick on project(DemoBDD) and create new project
+
+Step 7: Rightclick on MyAppFeatures -> and create Login.feature file
+
+*****
+In pom.xml ---> we add dependencies
+go to maven repository and type cucumber(io.cucumber)
+cucumber-java  (take same version of each)
+cucumber-junit (take same version of each)
+cucumber-core  (take same version of each)
+selenium-java 
+
+-------------------------------------------------------------------------------
+ %%%%%%%   Default data in Login.feature file  %%%%%%%%%%%%%%
+
+#Author: your.email@your.domain.com
+#Keywords Summary :
+#Feature: List of scenarios.
+#Scenario: Business rule through list of steps with arguments.
+#Given: Some precondition step
+#When: Some key actions
+#Then: To observe outcomes or validation
+#And,But: To enumerate more Given,When,Then steps
+#Scenario Outline: List of steps for data-driven as an Examples and <placeholder>
+#Examples: Container for s table
+#Background: List of steps run before each of the scenarios
+#""" (Doc Strings)
+#| (Data Tables)
+#@ (Tags/Labels):To group Scenarios
+#<> (placeholder)
+#""
+## (Comments)
+#Sample Feature Definition Template
+@tag
+Feature: Title of your feature
+  I want to use this template for my feature file
+
+  @tag1
+  Scenario: Title of your scenario
+    Given I want to write a step with precondition
+    And some other precondition
+    When I complete action
+    And some other action
+    And yet another action
+    Then I validate the outcomes
+    And check more outcomes
+
+  @tag2
+  Scenario Outline: Title of your scenario outline
+    Given I want to write a step with <name>
+    When I check for the <value> in step
+    Then I verify the <status> in step
+
+    Examples: 
+      | name  | value | status  |
+      | name1 |     5 | success |
+      | name2 |     7 | Fail    |
+
+-------------------------------------------------------------------------------
