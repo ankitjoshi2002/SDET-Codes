@@ -1,0 +1,156 @@
+***********      Cross Browsing using TestNG     **********
+
+---------------    TestGoogle.xml    ---------------
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite parallel="false" name="Suite">
+  <test thread-count="5" name="FirefoxTest" verbose="2">
+  <parameter name = "browser" value="firefox" />
+    <classes>
+      <class name="com.coforge.tests.TestGoogleSearch"/> 
+      <class name="com.coforge.tests.Test2"/>
+      <!-- <class name="com.coforge.tests.Combine_Task"/> -->
+    </classes>
+  </test> <!-- Test -->
+ 
+  
+  <test thread-count="5" name="ChromeTest" verbose="2">
+  <parameter name = "browser" value="chrome" />
+    <classes>
+      <class name="com.coforge.tests2.Test3"/>
+      <class name="com.coforge.tests2.TestYahoo"/>
+    </classes>
+  </test> <!-- Test -->
+
+<!-- Run this is for cross browsing -->
+
+</suite> <!-- Suite -->
+
+---------- TestGoogleSearch.java ---------------
+
+package com.coforge.tests;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+public class TestGoogleSearch {
+
+	WebDriver driver;
+	
+	@Parameters("browser")
+	@BeforeClass
+	public void setUpClass(String browser) {
+		System.out.println("hello lets run >>>>");
+		if(browser.equalsIgnoreCase("firefox"))
+			driver = new FirefoxDriver();
+		else if(browser.equalsIgnoreCase("chrome"))
+			driver = new ChromeDriver();
+	}
+	@AfterClass
+	public void lastCode() {
+		System.out.println("I am last  <<<>>> ");
+	}
+	
+	@BeforeMethod
+	public void triggerBeforMethod() {
+		System.out.println("let us setup test method  "); //runs before each @Test 
+	}
+	
+	@AfterMethod
+	public void terminateAfter() {
+		System.out.println(" bYe bye... ");  //runs after each @Test 
+	}
+	
+	@Test  (groups = {"smoke"})   //(priority = 1)
+	public void testRegisteration() {
+		System.out.println("testing registeration  ");
+		//assertFalse(4>2);
+		driver.get("https://www.google.com");
+	}
+	
+	@Test (dependsOnMethods = "testRegisteration", groups = {"sanity"}, dependsOnGroups = {"smoke"})     //(priority = 2)
+	  public void testLogin() {
+		System.out.println("testing login  ");
+	  }
+
+}
+
+
+---------------  TestYahoo.java  ---------------
+
+package com.coforge.tests2;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+public class TestYahoo {
+	
+	WebDriver driver;
+	
+	@Parameters("browser")
+	@BeforeClass
+	public void setupTheClass(String browser) {
+		System.out.println("Lets set Up methds... ");
+		if(browser.equalsIgnoreCase("firefox"))
+		driver = new FirefoxDriver();
+		else if(browser.equalsIgnoreCase("chrome")) {
+			driver = new ChromeDriver();
+			driver.get("https://www.amazon.com");
+		}
+	}
+	
+	
+	
+	@Test (groups = {"Regression"})
+	public void verifyYahooApp() {
+		
+		System.out.println("verifying Yahoo App.. ");
+		
+	}
+
+}
+
+
+
+-------------------- Test3.java  -------------------
+
+package com.coforge.tests2;
+
+import org.testng.annotations.Test;
+
+public class Test3 {
+	
+	@Test
+	public void verifyTest3App() {
+		System.out.println("Verify test3 App  ");
+		
+	}
+
+}
+
+------------------ Test2.java  ------------------
+package com.coforge.tests;
+
+import org.testng.annotations.Test;
+
+public class Test2 {
+	
+	@Test
+	public void verifyTest2App(){
+		System.out.println("I am test2App class in tests pacakage");
+		
+	}
+
+}

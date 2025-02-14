@@ -1,0 +1,95 @@
+************** Combine_Task.java  ****************
+**************  combining both testNG and Webdriver Concept ************
+
+
+package com.coforge.tests;
+
+import java.time.Duration;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class Combine_Task {
+
+	static WebDriver driver;
+	static WebDriverWait wait;
+//	public static void main(String[] args) {  System.out.println("hekki"); }
+	
+	@BeforeClass
+	public void setUpClass() {
+		System.out.println("<<<<< Opening Website for testing >>>>");
+		driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.navigate().back();   driver.navigate().forward();  driver.navigate().refresh();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(45));
+		wait = new WebDriverWait(driver, Duration.ofSeconds(45));
+	}
+	@AfterClass
+	public void ClosingTesingSite() {
+		//driver.quit();		
+		System.out.println("<<<<< Now All Done >>>>> ");
+	}
+	
+	@Test
+	public void LoginMethod(){
+		System.out.println(" -- Going for Login Part -- "); 
+		driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+		driver.findElement(By.name("username")).sendKeys("Admin");
+		driver.findElement(By.name("password")).sendKeys("admin123");
+		driver.findElement(By.className("orangehrm-login-button")).click();             
+		System.out.println(" ** succesfully login ** ");
+	}
+	
+	@Test (dependsOnMethods = "LoginMethod", priority = 1, groups = {"smoke"})
+	public void CheckingLeave() {
+		System.out.println(" -- Applying/Rejecting Leave -- "); 
+		driver.findElement(By.xpath("//a[@class='oxd-main-menu-item' and contains(@href,'/web/index.php/leave/viewLeaveModule')]")).click();
+		//driver.findElement(By.className("oxd-main-menu-item")).click();   //this won't work bcs multiple class having same name
+		System.out.println(" ** done with leave ** ");
+	}
+	
+	@Test (dependsOnMethods = "LoginMethod", priority = 23, groups = {"sanity"})
+	public void AdminTab() {
+		System.out.println(" -- Acessing Admin tab -- "); 
+		driver.findElement(By.xpath("//a[@class='oxd-main-menu-item' and contains(@href,'/web/index.php/admin/viewAdminModule')]")).click();
+		
+		driver.findElement(By.className("oxd-main-menu-item")).click();   //oxd-main-menu-item
+		
+		System.out.println(" ** leaving Admin tab ** ");
+	}	
+	
+	 @Test (groups = {"sanity"}, priority = 999) //(priority = 2) 
+	 public void SiteMaintance() throws InterruptedException {
+	 System.out.println(" -- Maintainence Starting -- "); 
+	 
+	 driver.findElement(By.xpath("//a[@class='oxd-main-menu-item' and contains(@href,'/web/index.php/maintenance/viewMaintenanceModule')]")).click();
+	 
+	 Thread.sleep(1800); 	 driver.findElement(By.name("password")).sendKeys("admin123");
+	 Thread.sleep(500);      driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[1]/form/div[4]/button[2]")).click();
+	 System.out.println(" ** Maintainence Done** "); 
+	 }
+	 
+	 @Test  (priority = 1002,  groups = {"smoke"})                         
+		public void EmployeeClaims() {
+			System.out.println(" -- Watching Claims -- ");
+			driver.findElement(By.xpath("//a[@class='oxd-main-menu-item' and contains(@href,'/web/index.php/claim/viewClaimModule')]")).click();
+			
+			List<WebElement> buttons = driver.findElements(By.xpath("//div[@class='oxd-table-card']//button[contains(@class, 'oxd-button--text')]"));
+			
+			for(WebElement web : buttons) {        //  for tabular format data   
+				System.out.println(web + "  ");    //  or data with same clases or attributes
+				web.click();                       //  uses this types of looping
+				break;                             //        
+			}
+		
+	        System.out.println(" ** Done with claims ** " );
+		}
+//	 data-v-10d463b7="" data-v-c423d1fa
+}
