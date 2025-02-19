@@ -1,0 +1,18 @@
+Functional testing
+Performance testing
+Security testing
+
+Apache JMeter - measure performance of web applications
+
+Static Techniques - (Code coverage tools, eg: CodeRabbit, SonarQube, Checkstyle )
+1. walkthrough
+2. inspections
+3. reviews - peers review / pair programming / desk checking
+	     formal review
+             informal reviews
+             semi-informal reviews
+
+-> What is a test case??
+-> A test case is a work product/deliverable (configurable item CIs) that is written to validate a piece of software under stated conditions or controlled enviourment (test enviourmnt/ test bed) with set of steps(test script) to be performed for a test condition with an expected result with a test data set with an optional precondition(s) and mandatorily a post condition
+
+# automation is all around test script(test case)

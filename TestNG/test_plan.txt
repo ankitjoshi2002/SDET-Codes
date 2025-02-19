@@ -1,0 +1,64 @@
+------------------------------------- TEST PLAN for E-Commerce Website -------------------------------------
+
+Introduction
+testing the e-commerce website.
+
+Objectives
+Verify functionality, ensure security, confirm performance, validate usability.
+
+Scope
+Functional Testing, Security Testing, Performance Testing, Usability Testing, Compatibility Testing
+
+Test Strategy	
+Functional Testing: 
+- User Registration: Verify user can create an account, email verification, password strength 
+- Login: Verify login with valid/invalid credentials, session management, logout functionality 
+- Product Search: Verify search results accuracy, filters, sorting 
+- Shopping Cart: Verify adding/removing items, updating quantities, price calculation 
+- Checkout: Verify address input, order summary, place order functionality 
+- Payment Gateway: Verify payment options, transaction completion, error handling 
+- Order History: Verify past order details, status tracking
+
+Security Testing: 
+- Payment Gateway: Verify data encryption, secure data transmission, vulnerability scan
+- User Account Management: Verify password protection, access control, session expiration
+
+Performance Testing: 
+- Homepage: Verify load time, response time under load, scalability. 
+- Product Search: Verify response time, handling large datasets, server resource usage
+- Checkout: Verify transaction speed, server performance(load balancer) 
+
+Usability Testing: 
+(used to evaluate a product or service by testing it with real users)
+- Overall Website: Verify navigation ease, readability, user satisfaction, accessibility
+
+Compatibility Testing:
+(used to ensure that an application or website functions correctly across various environments)
+- Overall Website: Verify functionality across different browsers (Chrome, Firefox, Safari, Edge) and devices (desktop, mobile, tablet)
+
+
+Test Environment	
+Hardware: Server with appropriate specifications. 
+Software: Web browsers (Chrome, Firefox, Safari, Edge), Automation tools (Selenium, JMeter), Security tools (OWASP ZAP)
+
+Test Schedule	
+Preparation Phase: 1 week 
+Execution Phase: 3 weeks 
+Reporting Phase: 1 week
+
+Deliverables	
+Test Plan Document, Test Cases, Test Scripts, Test Reports, Defect Logs
+
+Resources	
+Human Resources: QA Team(testers), Developers, Security team 
+Tools: Selenium, JMeter, OWASP ZAP
+
+Risks and Mitigations	Risk: Delay in test execution due to resource unavailability 
+Mitigation: Prioritize tasks and ensure backup resources are available
+
+Approval	Project Manager, QA Lead
+
+***peer review -> this should be very specific
+** if project fails then what is the impact on the project
+** make for next version
+**add specific test cases
